@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  mongodb:
+    image : mongo:6.0.2
+    container_name: mongodb
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /home/user/Projects/mongodb/database:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:rw
+    ports:
+      - 27018:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: passwd
+    restart: unless-stopped
